@@ -1,0 +1,47 @@
+from rubik_solver import utils
+
+# Function to solve the Rubik's Cube
+def solve_rubiks_cube(cube_state):
+    """
+    Solves the Rubik's Cube using Kociemba's algorithm.
+
+    Parameters:
+    cube_state (list): A list representing the cube's state. Each face should be represented as:
+        - 'U' for Up
+        - 'D' for Down
+        - 'F' for Front
+        - 'B' for Back
+        - 'L' for Left
+        - 'R' for Right
+
+    Returns:
+    list: A list of steps to solve the cube.
+    """
+    try:
+        solution = utils.solve(cube_state)
+        return solution
+    except Exception as e:
+        print(f"Error solving the cube: {e}")
+        return None
+
+# Example usage:
+if __name__ == "__main__":
+    # Example cube state (scrambled)
+    # Format: Up (U), Right (R), Front (F), Down (D), Left (L), Back (B)
+    cube_state = [
+        'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U',
+        'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F',
+        'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D',
+        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L',
+        'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'
+    ]
+
+    # Solve the cube
+    solution = solve_rubiks_cube(cube_state)
+
+    if solution:
+        print("Solution steps:")
+        print(solution)
+    else:
+        print("Could not solve the Rubik's Cube.")

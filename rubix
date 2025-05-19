@@ -1,0 +1,45 @@
+class Cube:
+    def __init__(self, size=3):
+        self.size = size
+        self.faces = {
+            "F": [["W" for _ in range(size)] for _ in range(size)],
+            "B": [["Y" for _ in range(size)] for _ in range(size)],
+            "U": [["O" for _ in range(size)] for _ in range(size)],
+            "D": [["R" for _ in range(size)] for _ in range(size)],
+            "L": [["G" for _ in range(size)] for _ in range(size)],
+            "R": [["B" for _ in range(size)] for _ in range(size)],
+        }
+
+    def rotate_face_clockwise(self, face):
+        new_face = [list(row) for row in zip(*reversed(self.faces[face]))]
+        self.faces[face] = new_face
+
+    def rotate_face_counterclockwise(self, face):
+      for _ in range(3):
+        self.rotate_face_clockwise(face)
+    
+    def move(self, move_string):
+      face = move_string[0]
+      direction = move_string[1:]
+      if direction == "" or direction == " ":
+        self.rotate_face_clockwise(face)
+      elif direction == "'":
+        self.rotate_face_counterclockwise(face)
+      elif direction == "2":
+        self.rotate_face_clockwise(face)
+        self.rotate_face_clockwise(face)
+      else:
+        raise Exception("invalid move")
+
+    def print_cube(self):
+        for face in ["U", "L", "F", "R", "B", "D"]:
+            print(f"Face {face}:")
+            for row in self.faces[face]:
+                print(row)
+            print()
+# Example usage
+cube = Cube()
+cube.move("R")
+cube.move("U'")
+cube.move("F2")
+cube.print_cube()
